@@ -1,21 +1,40 @@
 /* importing cool font */
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 /* Global styles */
 * {
     background: #0B2027;
     color: #fff;
     font-family: 'Share Tech Mono', monospace;
+    /* font-family: 'Lexend', sans-serif; */
     font-size: 16px;
 }
 
 body {
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     display: flex;
     min-height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3em;
 }
 
 p {
-    font-size: 32px;
+    font-size: 1.5em;
+}
+
+button {
+    background-color: #40798C;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+button:hover {
+    background-color: #0E4749;
+    box-shadow: 0px 0px 2px 2px #0E4749;
 }
