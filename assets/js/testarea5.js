@@ -43,3 +43,8 @@ console.log(currentQuestion.question);
 function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   }
+
+
+  console.log(newHeader.textContent);
+  console.log(typeof(newHeader.textContent))
+  //toString()
