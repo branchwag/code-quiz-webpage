@@ -64,50 +64,34 @@ function makeQuestion() {
 return;
 }
 
-function testFunction() {
-    console.log("The testFunction has run");
-}
-
-//write checkAnswer function
-
-function listenForAnswer() {
-    //checking for a submitted answer after question has been created
-    // need to find a way of checking for each button uniquely. aka tell which one was clicked
-    // for every answer button created, listen
-    answersToCheck = "answer0";
-    //something needs to return a string here
-
-    //document.getElementById("answer1").addEventListener('click', checkAnswer);
-    document.getElementById(answersToCheck).addEventListener('click', testFunction);
-
-    //take the value contained within the element itself and check it against the question's answer property
-    // if answer clicked === question's answer property
+function CheckAnswer (event) {
+        //take the value contained within the element itself and check it against the question's answer property
+    // if answer clicked === current question's answer property
         // create element with Correct text on page
         //increment score
 
-return console.log("The listenForAnswer function has run!");
+    //check the answer of the current question we are on and compare against answer in box
+
+    var currentQuestionAnswer = "115";
+ 
+    if (event.target.innerText === currentQuestionAnswer) {
+        console.log("You clicked the right button");
+        }
+
+return console.log("The checkAnswer function has run!");
 }
 
 
 function startQuiz() {
-    
-    makeQuestion();
-    questionCount++;
-    listenForAnswer();
-    //check stuff and give score
-    //then 
-    //makeQuestion();
-    //questionCount++;
-
     //add some logic that for the length of the question array quizQandAs and runs this cycle for its length
-
-
+    makeQuestion();
+    document.addEventListener('click', CheckAnswer);
+    questionCount++;
 
     return console.log("the startQuiz function has run.");
 }
 
 //Initialization
-//Listen for button clicks
-//starting the game
+//Listen for button click to start the game
 document.getElementById("startbutton").addEventListener('click', startQuiz);
 

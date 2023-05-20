@@ -50,3 +50,31 @@ console.log(Object.values(quizQandAs[0].answers).length);
     // console.log(answerArray);
     // console.log(typeof(answerArray));
     // console.log(answerArray[2]);
+
+
+        // console.log(event.target);
+    // console.log(typeof(event.target));
+    // console.log(event);  
+
+    // function testFunction() {
+    
+// return console.log("The testFunction has run");
+// }
+
+//write checkAnswer function
+
+function listenForAnswer() {
+    //checking for a submitted answer after question has been created
+    // need to find a way of checking for each button uniquely. aka tell which one was clicked
+    // for every answer button created, listen
+    // answersToCheck = "answer0";
+    //something needs to return a string here
+
+    //document.getElementById("answer1").addEventListener('click', checkAnswer);
+    // document.getElementById(answersToCheck).addEventListener('click', testFunction);
+
+return console.log("The listenForAnswer function has run!");
+}
+
+    // console.log(event);
+    //console.log(event.target.innerText);
