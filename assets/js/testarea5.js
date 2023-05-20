@@ -37,3 +37,9 @@ console.log(currentQuestion.question);
     // console.log(questionCount);
 
     // console.log(score);
+
+
+    //little delay function for letting user see result before moving on to next question
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }

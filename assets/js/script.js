@@ -40,7 +40,6 @@ function makeQuestion() {
     contentBox.innerHTML = "";
 
     //wipe feedback box clean after some time
-    delay(1000);
     feedback.innerHTML = "";
 
     //GET THE QUESTION AND ANSWER CONTENT
@@ -73,12 +72,6 @@ function makeQuestion() {
 return;
 }
 
-//little delay function for letting user see result before moving on to next question
-function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
-  }
-
-
 function CheckAnswer(event) {
 
         //take the value contained within the element itself and check it against the question's answer property
@@ -103,8 +96,7 @@ function CheckAnswer(event) {
         feedbackElement.textContent = "Correct!"
         document.getElementById("feedback").appendChild(feedbackElement);
         //wait here
-        delay(4000);
-        return makeQuestion();
+        return setTimeout(makeQuestion, 1000);
         
         }
     else if (event.target.id.includes("answer") && (event.target.innerText !== quizQandAs[questionCount].answers[convertedAnswerToString])) {
