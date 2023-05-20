@@ -40,7 +40,7 @@ function makeQuestion() {
 
     //create new question content
     var newHeader = document.createElement("h1");
-    newHeader.textContent = quizQandAs[0].question;
+    newHeader.textContent = currentQuestion.question;
     newHeader.id = 'question';
     document.getElementById("contentbox").appendChild(newHeader)
 
@@ -71,12 +71,18 @@ function CheckAnswer (event) {
         //increment score
 
     //check the answer of the current question we are on and compare against answer in box
+    var currentQuestionAnswer = Object.values(currentQuestion.correctAnswer);
+    var convertedAnswerToString = currentQuestionAnswer.toString();
 
-    var currentQuestionAnswer = "115";
- 
-    if (event.target.innerText === currentQuestionAnswer) {
+    console.log(event);
+    
+    //if button is an answer button AND criteria checks out, do the things
+    if (event.target.innerText === currentQuestion.answers[convertedAnswerToString]) {
         console.log("You clicked the right button");
         }
+    else {
+        console.log("You are not clicking on the correct answer!");
+    }
 
 return console.log("The checkAnswer function has run!");
 }
