@@ -1,0 +1,45 @@
+/* importing cool font */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+/* Global styles */
+* {
+    background: #0B2027;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 16px;
+}
+
+body {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    min-height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3em;
+    display: block;
+}
+
+p {
+    font-size: 1.5em;
+    display: block;
+}
+
+button {
+    background-color: #40798C;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #0E4749;
+    box-shadow: 0px 0px 2px 2px #0E4749;
+}
+
+[id^=answer] {
+    display: block;
+}
