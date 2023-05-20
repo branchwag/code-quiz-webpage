@@ -93,7 +93,7 @@ function startQuiz() {
     //add some logic that for the length of the question array quizQandAs and runs this cycle for its length
     makeQuestion();
     document.addEventListener('click', CheckAnswer);
-    //questionCount++;
+    //questionCount++; Maybe only increment the question count within a right or wrong answer scenario
 
     return console.log("the startQuiz function has run.");
 }
