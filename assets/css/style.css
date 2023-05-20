@@ -32,6 +32,7 @@ button {
     background-color: #40798C;
     border-radius: 5px;
     padding: 5px;
+    margin: 5px;
 }
 
 button:hover {
@@ -39,6 +40,6 @@ button:hover {
     box-shadow: 0px 0px 2px 2px #0E4749;
 }
 
-#answer {
+[id^=answer] {
     display: block;
 }

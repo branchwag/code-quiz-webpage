@@ -45,3 +45,8 @@ console.log(Object.values(quizQandAs[0].answers).length);
 //   }
   
 // console.log(count);
+
+
+    // console.log(answerArray);
+    // console.log(typeof(answerArray));
+    // console.log(answerArray[2]);

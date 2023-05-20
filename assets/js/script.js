@@ -9,7 +9,8 @@ var quizQandAs = [
 		answers: {
 			a: '7',
 			b: '5',
-			c: '115'
+			c: '115',
+            d: '130'
 		},
 		correctAnswer: 'b'
 	},
@@ -18,11 +19,16 @@ var quizQandAs = [
 		answers: {
 			a: '3',
 			b: '5',
-			c: '10'
+			c: '10',
+            d: '130'
 		},
 		correctAnswer: 'c'
 	}
 ];
+
+var questionCount = 0;
+var currentQuestion = quizQandAs[questionCount];
+
 
 //rendering question and its answers onto the page
 function makeQuestion() {
@@ -31,32 +37,23 @@ function makeQuestion() {
     contentBox.innerHTML = "";
 
     //GET THE QUESTION AND ANSWER CONTENT
-        //the question we are on needs to be a variable, value a for loop to cycle through questions
 
-    var currentQuestion = quizQandAs[0];
-    // change above to for loop - for answers under question, make buttons
-
-        //create new question content
-        var newHeader = document.createElement("h1");
-        newHeader.textContent = quizQandAs[0].question;
-        newHeader.id = 'question';
-        document.getElementById("contentbox").appendChild(newHeader)
+    //create new question content
+    var newHeader = document.createElement("h1");
+    newHeader.textContent = quizQandAs[0].question;
+    newHeader.id = 'question';
+    document.getElementById("contentbox").appendChild(newHeader)
 
     //MAKING THE ANSWER BUTTONS
     var countOfAnswers = (Object.values(currentQuestion.answers).length);
     var answerArray = Object.values(currentQuestion.answers);
 
-    // console.log(answerArray);
-    // console.log(typeof(answerArray));
-    // console.log(answerArray[2]);
-
-    //prints answers
-    //so what do we need to do with each answer? MAKE BUTTONSSSS instead of logging
     for (var i = 0; i < countOfAnswers; i++) {
 
-    //append answers to the new header 
+    //append answers to the new header question 
     var answerElement = document.createElement("button");
-    answerElement.id = 'answer';
+    var uniqueIDvalue = 'answer' + i; //assigns each button unique ID
+    answerElement.id = uniqueIDvalue; 
 
     //answerElement.innerHTML = "answer1";
     answerElement.innerHTML = answerArray[i]
@@ -64,27 +61,47 @@ function makeQuestion() {
     document.getElementById("question").appendChild(answerElement);
     }
 
-
-
-    
-
-
 return;
+}
+
+function testFunction() {
+    console.log("The testFunction has run");
 }
 
 //write checkAnswer function
 
-function checkAnswer() {
-    console.log("This is the check answer function!")
-    
+function listenForAnswer() {
+    //checking for a submitted answer after question has been created
+    // need to find a way of checking for each button uniquely. aka tell which one was clicked
+    // for every answer button created, listen
+    answersToCheck = "answer0";
+    //something needs to return a string here
+
+    //document.getElementById("answer1").addEventListener('click', checkAnswer);
+    document.getElementById(answersToCheck).addEventListener('click', testFunction);
+
+    //take the value contained within the element itself and check it against the question's answer property
+    // if answer clicked === question's answer property
+        // create element with Correct text on page
+        //increment score
+
+return console.log("The listenForAnswer function has run!");
 }
 
 
 function startQuiz() {
     
     makeQuestion();
-    //checking for a submitted answer after question has been created
-    //document.getElementById("answer").addEventListener('click', checkAnswer);
+    questionCount++;
+    listenForAnswer();
+    //check stuff and give score
+    //then 
+    //makeQuestion();
+    //questionCount++;
+
+    //add some logic that for the length of the question array quizQandAs and runs this cycle for its length
+
+
 
     return console.log("the startQuiz function has run.");
 }
