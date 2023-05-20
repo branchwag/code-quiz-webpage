@@ -73,15 +73,16 @@ function CheckAnswer (event) {
     //check the answer of the current question we are on and compare against answer in box
     var currentQuestionAnswer = Object.values(currentQuestion.correctAnswer);
     var convertedAnswerToString = currentQuestionAnswer.toString();
-
-    console.log(event);
     
     //if button is an answer button AND criteria checks out, do the things
-    if (event.target.innerText === currentQuestion.answers[convertedAnswerToString]) {
+    if (event.target.id.includes("answer") && (event.target.innerText === currentQuestion.answers[convertedAnswerToString])) {
         console.log("You clicked the right button");
         }
+    else if (event.target.id.includes("answer") && (event.target.innerText !== currentQuestion.answers[convertedAnswerToString])) {
+        console.log("You clicked an answer but it is not right");
+    }
     else {
-        console.log("You are not clicking on the correct answer!");
+        console.log("You are not clicking on any answers");
     }
 
 return console.log("The checkAnswer function has run!");

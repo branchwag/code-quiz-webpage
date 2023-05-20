@@ -63,3 +63,17 @@ console.log(typeof(currentQuestion.correctAnswer));
 
     console.log(currentQuestion.answers[convertedAnswerToString]);
     console.log(typeof(currentQuestion.answers[convertedAnswerToString]));
+
+
+        // console.log(event.target);
+    // console.log(typeof(event.target));
+    // console.log(event.target.id.contains('answer'))
+    console.log(event.target.id);
+    console.log(typeof(event.target.id));
+
+
+    
+    if (event.target.id.includes("answer")) {
+
+        console.log("You clicked an answer");
+    }
