@@ -50,3 +50,12 @@ function delay(time) {
   //toString()
 
       //maybe make this a RunQuiz function that calls CheckAnswer which is defined above it
+
+	  
+            //After elements have been created...On any click, run the CheckAnswer function
+            //document.addEventListener('click', CheckAnswer);
+
+			            // console.log("The startQuiz function has run.");
+            // return CheckAnswer();
+
+			    // console.log("The runQuiz function has really run!")

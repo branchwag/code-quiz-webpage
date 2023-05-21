@@ -149,8 +149,6 @@ function makeQuestion() {
     }
 
     else {
-            // console.log("The startQuiz function has run.");
-            // return CheckAnswer();
 
         //wipe content box clean
         contentBox.innerHTML = "";
@@ -190,8 +188,6 @@ function makeQuestion() {
 
             document.getElementById("answersbox").appendChild(answerElement);
 
-            //After elements have been created...On any click, run the CheckAnswer function
-            document.addEventListener('click', CheckAnswer);
             }
     }
     
@@ -210,7 +206,7 @@ function CheckAnswer(event) {
     var convertedAnswerToString = currentQuestionAnswer.toString();
     var feedbackElement = document.createElement("p");
     
-    //if button clicked is an answer button AND the button text equals the right answer for that question, run the things needed for being correct
+    //CORRECT: if button clicked is an answer button AND the button text equals the right answer for that question, run the things needed for being correct
     if (event.target.id.includes("answer") && (event.target.innerText === quizQandAs[questionCount].answers[convertedAnswerToString])) {
         
         score += 10;
@@ -228,7 +224,7 @@ function CheckAnswer(event) {
         return setTimeout(makeQuestion, 1000);
         
         }
-    //if the thing clicked is an answer button and the answer text is not the correct answer for the question, run the things for being incorrect
+    //INCORRECT: if the thing clicked is an answer button and the answer text is not the correct answer for the question, run the things for being incorrect
     else if (event.target.id.includes("answer") && (event.target.innerText !== quizQandAs[questionCount].answers[convertedAnswerToString])) {
         
         //telling user that they got question WRONG
@@ -237,6 +233,8 @@ function CheckAnswer(event) {
         document.getElementById("feedback").appendChild(feedbackElement);
 
         questionCount++;
+
+        //subtract from timer
         
         //wait here to let the user see the result for a second
         return setTimeout(makeQuestion, 1000);
@@ -254,21 +252,55 @@ function storeScore() {
     // console.log("This is the store score function.")
 }
 
-function startQuiz() {
+// function countdown() {
+//     var seconds = 59;
+//     function tick() {
+//       var counter = document.getElementById("counter");
+//       seconds--;
+//       counter.innerHTML =
+//         "0:" + (seconds < 10 ? "0" : "") + String(seconds);
+//       if (seconds > 0) {
+//         setTimeout(tick, 1000);
+//       } else {
+//         document.getElementById("verifiBtn").innerHTML = `
+//             <div class="Btn" id="ResendBtn">
+//                 <button type="submit">Resend</button>
+//             </div>
+//         `;
+//         document.getElementById("counter").innerHTML = "";
+//       }
+//     }
+//     tick();
+//   }
+
+//main function below that drives everything 
+
+function runQuiz() {
+    console.log("The runQuiz function has started!")
 
     makeQuestion();
-    // put up Timer and Score;
+
+    //put up Timer and Score;
+
+    //TIMER
+    //run the timer function
+    // countdown();
+
+    //SCORE
     //<p>Current score: </p>
     scoreElement = document.createElement("p");
     scoreElement.textContent = "Current score: " + score;
     document.getElementById("scorebox").appendChild(scoreElement);
-    console.log("The startQuiz function has really run!")
+
+    //now we listen for clicks and when the user clicks, we run CheckAnswer
+    document.addEventListener('click', CheckAnswer);
+
     return;
 }
 
 //Initialization
 //Listen for button click to start the game
-document.getElementById("startbutton").addEventListener('click', startQuiz);
+document.getElementById("startbutton").addEventListener('click', runQuiz);
 
 
 //console.log(questionCount);
