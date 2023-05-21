@@ -137,6 +137,7 @@ function makeQuestion() {
         feedback.innerHTML = "";
 
         //wipe timer box clean
+        //clearTimeout();
         timerbox.innerHTML = "";
 
         var newHeader = document.createElement("h1");
@@ -151,7 +152,7 @@ function makeQuestion() {
         storeScore();
 
 
-        return 
+        return ;
     }
 
     else {
@@ -259,24 +260,36 @@ function storeScore() {
 }
 
 function countdown() {
-    var seconds = 300;
-    function tick() {
-      var counter = document.getElementById("timer");
-      seconds--;
-      counter.innerHTML =
-        "0:" + (seconds < 10 ? "0" : "") + String(seconds);
-      if (seconds > 0) {
-        setTimeout(tick, 1000);
-      } else {
-        document.getElementById("verifiBtn").innerHTML = `
-            <div class="Btn" id="ResendBtn">
-                <button type="submit">Resend</button>
-            </div>
-        `;
-        document.getElementById("counter").innerHTML = "";
-      }
+    var seconds = 60;
+
+        //only tick if the quiz is still going
+    //if element id exists
+    // console.log(document.getElementById("timer"));
+    // console.log(typeof(document.getElementById("timer")));
+
+    if (document.getElementById("timer") !== null) {
+        tick();
     }
-    tick();
+    else {
+        console.log("Timer is no longer needed");
+        // clearTimeout();
+    }
+
+        function tick() {
+        var counter = document.getElementById("timer");
+        seconds--;
+        counter.innerHTML =
+            "Timer:" + (seconds < 10 ? "0" : "") + String(seconds);
+        if (seconds > 0) {
+            setTimeout(tick, 1000);
+        } else {
+            //clearTimeout();
+            document.getElementById("contentbox").innerHTML = "TIMES UP!!";
+            document.getElementById("timer").innerHTML = "";
+        }
+        }
+
+
   }
 
 //main function below that drives everything 
@@ -301,7 +314,7 @@ function runQuiz() {
     //<p>Current score: </p>
     scoreElement = document.createElement("p");
     scoreElement.id = 'score';
-    scoreElement.textContent = "Current score: " + score;
+    scoreElement.textContent = "Score: " + score;
     document.getElementById("scorebox").appendChild(scoreElement);
 
     //now we listen for clicks and when the user clicks, we run CheckAnswer
