@@ -46,7 +46,7 @@ var quizQandAs = [
 		correctAnswer: 'd'
 	},
     {
-		question: "How do create a function in Javascript?",
+		question: "How do you create a function in Javascript?",
 		answers: {
 			a: 'function myFunction()',
 			b: 'function = myFunction()',
@@ -107,7 +107,8 @@ var quizQandAs = [
 	},
 ];
 
-console.log(quizQandAs.length);
+//console.log(quizQandAs.length);
+
 
 //variable to determine current question
 var questionCount = 0;
@@ -119,53 +120,67 @@ var timer = 100;
 //rendering question and its answers onto the page
 function makeQuestion() {
 
-    //wipe content box clean
-    contentBox.innerHTML = "";
+    console.log(questionCount);
+    console.log("the quiz length minus 1 is " + (quizQandAs.length - 1));
 
-    //wipe feedback box clean after some time
-    feedback.innerHTML = "";
+    //if there are no further questions, we need to stop the quiz 
+    //maybe make this a RunQuiz function that calls CheckAnswer which is defined above it
 
-    //GET THE QUESTION AND ANSWER CONTENT
-
-    //create new question content
-    var newHeader = document.createElement("h1");
-    newHeader.textContent = quizQandAs[questionCount].question;
-    newHeader.id = 'question';
-    document.getElementById("contentbox").appendChild(newHeader)
-
-    //making a box to append answers to rather than appending to header
-    // <div id="answersbox"></div>
-    var answersBox = document.createElement("h1");
-    answersBox.id = 'answersbox';
-    document.getElementById("question").after(answersBox);
-
-    //MAKING THE ANSWER BUTTONS
-    var countOfAnswers = (Object.values(quizQandAs[questionCount].answers).length);
-    var answerArray = Object.values(quizQandAs[questionCount].answers);
-
-    for (var i = 0; i < countOfAnswers; i++) {
-
-    //adds answer buttons AFTER the new header question in the answersbox div
-    var answerElement = document.createElement("button");
-    var uniqueIDvalue = 'answer' + i; //assigns each button unique ID
-    answerElement.id = uniqueIDvalue; 
-
-    //populate each answer button with the associated answer in the array for this question
-    // var answerTextfromArray = answerArray[i];
-    answerElement.innerHTML = answerArray[i].toString();
-    // console.log(typeof(answerArray));
-
-    document.getElementById("answersbox").appendChild(answerElement);
-
+    if (questionCount > (quizQandAs.length - 1)) {
+        console.log("The startQuiz function has run.");
+        return console.log("STOP DA QUIZ!");
     }
 
-    document.addEventListener('click', CheckAnswer);
+    else {
+            // console.log("The startQuiz function has run.");
+            // return CheckAnswer();
+            //wipe content box clean
+        contentBox.innerHTML = "";
 
-return;
+        //wipe feedback box clean after some time
+        feedback.innerHTML = "";
+
+        //GET THE QUESTION AND ANSWER CONTENT
+
+        //create new question content
+        var newHeader = document.createElement("h1");
+        newHeader.textContent = quizQandAs[questionCount].question;
+        newHeader.id = 'question';
+        document.getElementById("contentbox").appendChild(newHeader)
+
+        //making a box to append answers to rather than appending to header
+        // <div id="answersbox"></div>
+        var answersBox = document.createElement("h1");
+        answersBox.id = 'answersbox';
+        document.getElementById("question").after(answersBox);
+
+        //MAKING THE ANSWER BUTTONS
+        var countOfAnswers = (Object.values(quizQandAs[questionCount].answers).length);
+        var answerArray = Object.values(quizQandAs[questionCount].answers);
+
+        for (var i = 0; i < countOfAnswers; i++) {
+
+            //adds answer buttons AFTER the new header question in the answersbox div
+            var answerElement = document.createElement("button");
+            var uniqueIDvalue = 'answer' + i; //assigns each button unique ID
+            answerElement.id = uniqueIDvalue; 
+
+            //populate each answer button with the associated answer in the array for this question
+            // var answerTextfromArray = answerArray[i];
+            answerElement.innerHTML = answerArray[i].toString();
+            // console.log(typeof(answerArray));
+
+            document.getElementById("answersbox").appendChild(answerElement);
+
+            document.addEventListener('click', CheckAnswer);
+            }
+    }
+    
+return console.log("The MakeQuestion function has run!");
 }
 
 function CheckAnswer(event) {
-
+    console.log("The CheckAnswer function has run!");
         //take the value contained within the element itself and check it against the question's answer property
     // if answer clicked === current question's answer property
         // create element with Correct text on page
@@ -203,7 +218,7 @@ function CheckAnswer(event) {
         document.getElementById("feedback").appendChild(feedbackElement);
 
         questionCount++;
-        console.log(questionCount);
+        
 
         return setTimeout(makeQuestion, 1000);
     }
@@ -214,6 +229,9 @@ function CheckAnswer(event) {
 return ;
 }
 
+// function RunQuiz() {
+    
+// }
 
 function startQuiz() {
     //add some logic that for the length of the question array quizQandAs and runs this cycle for its length
@@ -223,11 +241,11 @@ function startQuiz() {
     scoreElement = document.createElement("p");
     scoreElement.textContent = "Current score: " + score;
     document.getElementById("scorebox").appendChild(scoreElement);
-
-    return console.log("the startQuiz function has run.");
 }
 
 //Initialization
 //Listen for button click to start the game
 document.getElementById("startbutton").addEventListener('click', startQuiz);
 
+
+//console.log(questionCount);
