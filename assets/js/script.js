@@ -132,7 +132,8 @@ function makeQuestion() {
     //check not only question count but if endgame has run
     //console.log("The endGameRun variable is " + endGameRun)
 
-    //checks if we have reached the end of the questions or if we have run out of time
+    //checks if we have reached the end of the questions 
+    //or if we have run out of time  
     if ((questionCount > (quizQandAs.length - 1)) || secondCount < 1) {
         //moved this to the endGame function, which is also called when time runs out
         //console.log("The part of the makeQuestion function that causes the game to End has run");
@@ -258,11 +259,6 @@ function timerFunction() {
     var intTimerID = setInterval(secondsCounter, 1000);
     var timer = document.getElementById("timer");
 
-    //if quiz is still going and the timer is above 0
-    // questionCount > (quizQandAs.length - 1)
-    //(questionCount > (quizQandAs.length - 1)) && 
-    //IF THE GAME IS STILL GOING
-
     function secondsCounter() {
     if (secondCount > 0) {
         //timer variables
@@ -274,12 +270,17 @@ function timerFunction() {
         // return timer.innerHTML = "Timer:" + tickingDown;
         return timer.innerHTML = "Timer:" + secondCount;
     } 
-
-    else {//replace with endGame function
+    //else if we still have questions left but the timer is now 0
+    else if (secondCount === 0 && (questionCount < (quizQandAs.length - 1))) {
         timer.innerHTML = "TIMER IS UP!";
         clearInterval(intTimerID);
-        return endGame();   
-    }  
+        //adding a delay here so we can see the timer being up
+        return setTimeout(endGame, 1000);   
+    }
+    
+    else {
+        return console.log("Other secondsCounter scenario has occurred");
+    }
     // clearInterval(intTimerID);
     // document.getElementById("contentbox").innerHTML = "TIME IS UP!";
     // document.getElementById("timer").innerHTML = "TIME IS UP!";
