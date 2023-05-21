@@ -107,37 +107,50 @@ var quizQandAs = [
 	},
 ];
 
+//just checking number of questions to make sure we have 10 questions
 //console.log(quizQandAs.length);
 
-
-//variable to determine current question
+//variable to determine current question we are on
 var questionCount = 0;
 
 //score and timer
 var score = 0;
 var timer = 100;
 
-//rendering question and its answers onto the page
+//rendering question and its answers onto the page, then listening for clicks. 
 function makeQuestion() {
 
-    console.log(questionCount);
-    console.log("the quiz length minus 1 is " + (quizQandAs.length - 1));
+    // console.log(questionCount);
+    // console.log("the quiz length minus 1 is " + (quizQandAs.length - 1));
 
     //if there are no further questions, we need to stop the quiz 
     //maybe make this a RunQuiz function that calls CheckAnswer which is defined above it
 
     if (questionCount > (quizQandAs.length - 1)) {
         console.log("The startQuiz function has run.");
-        return console.log("STOP DA QUIZ!");
+        //wipe content box clean
+        contentBox.innerHTML = "";
+
+        //wipe feedback box clean
+        feedback.innerHTML = "";
+
+        var newHeader = document.createElement("h1");
+        newHeader.textContent = "Thanks for playing!";
+        newHeader.id = 'endtext';
+        document.getElementById("contentbox").appendChild(newHeader)
+
+
+        return //console.log("STOP DA QUIZ!");
     }
 
     else {
             // console.log("The startQuiz function has run.");
             // return CheckAnswer();
-            //wipe content box clean
+
+        //wipe content box clean
         contentBox.innerHTML = "";
 
-        //wipe feedback box clean after some time
+        //wipe feedback box clean
         feedback.innerHTML = "";
 
         //GET THE QUESTION AND ANSWER CONTENT
@@ -172,6 +185,7 @@ function makeQuestion() {
 
             document.getElementById("answersbox").appendChild(answerElement);
 
+            //After elements have been created...On any click, run the CheckAnswer function
             document.addEventListener('click', CheckAnswer);
             }
     }
@@ -182,23 +196,23 @@ return console.log("The MakeQuestion function has run!");
 function CheckAnswer(event) {
     console.log("The CheckAnswer function has run!");
         //take the value contained within the element itself and check it against the question's answer property
-    // if answer clicked === current question's answer property
+        //if answer clicked === current question's answer property
         // create element with Correct text on page
         //increment score if correct
 
-    //check the answer of the current question we are on and compare against answer in box
+    //check the answer of the current question we are on and compare against answer in button box
     var currentQuestionAnswer = Object.values(quizQandAs[questionCount].correctAnswer);
     var convertedAnswerToString = currentQuestionAnswer.toString();
     var feedbackElement = document.createElement("p");
     
-    //if button is an answer button AND criteria checks out, do the things
+    //if button clicked is an answer button AND the button text equals the right answer for that question, run the things needed for being correct
     if (event.target.id.includes("answer") && (event.target.innerText === quizQandAs[questionCount].answers[convertedAnswerToString])) {
         
         score += 10;
-        //update the score paragraph with new text for score
-        scoreElement.textContent = "Current score: " + score;
+        //update the score paragraph with new text for increased score
+        scoreElement.textContent = "Score: " + score;
 
-        //telling user that they got question right
+        //tell user that they got question right by putting in element under question
         // console.log("You clicked the right button.");
         feedbackElement.textContent = "Correct!"
         document.getElementById("feedback").appendChild(feedbackElement);
@@ -209,6 +223,7 @@ function CheckAnswer(event) {
         return setTimeout(makeQuestion, 1000);
         
         }
+    //if the thing clicked is an answer button and the answer text is not the correct answer for the question, run the things for being incorrect
     else if (event.target.id.includes("answer") && (event.target.innerText !== quizQandAs[questionCount].answers[convertedAnswerToString])) {
         
         //telling user that they got question WRONG
@@ -219,9 +234,10 @@ function CheckAnswer(event) {
 
         questionCount++;
         
-
+        //wait here to let the user see the result for a second
         return setTimeout(makeQuestion, 1000);
     }
+    //accounting for things besides the buttons being clicked
     else {
         console.log("listening...");
     }
