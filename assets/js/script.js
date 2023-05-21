@@ -127,11 +127,17 @@ function makeQuestion() {
     // logic issss to check for the length of the question array quizQandAs and runs this cycle for its length
 
     if (questionCount > (quizQandAs.length - 1)) {
+
+        //console.log("STOP DA QUIZ!");
+
         //wipe content box clean
         contentBox.innerHTML = "";
 
         //wipe feedback box clean
         feedback.innerHTML = "";
+
+        //wipe timer box clean
+        timerbox.innerHTML = "";
 
         var newHeader = document.createElement("h1");
         newHeader.textContent = "Thanks for playing!";
@@ -145,7 +151,7 @@ function makeQuestion() {
         storeScore();
 
 
-        return //console.log("STOP DA QUIZ!");
+        return 
     }
 
     else {
@@ -252,26 +258,26 @@ function storeScore() {
     // console.log("This is the store score function.")
 }
 
-// function countdown() {
-//     var seconds = 59;
-//     function tick() {
-//       var counter = document.getElementById("counter");
-//       seconds--;
-//       counter.innerHTML =
-//         "0:" + (seconds < 10 ? "0" : "") + String(seconds);
-//       if (seconds > 0) {
-//         setTimeout(tick, 1000);
-//       } else {
-//         document.getElementById("verifiBtn").innerHTML = `
-//             <div class="Btn" id="ResendBtn">
-//                 <button type="submit">Resend</button>
-//             </div>
-//         `;
-//         document.getElementById("counter").innerHTML = "";
-//       }
-//     }
-//     tick();
-//   }
+function countdown() {
+    var seconds = 300;
+    function tick() {
+      var counter = document.getElementById("timer");
+      seconds--;
+      counter.innerHTML =
+        "0:" + (seconds < 10 ? "0" : "") + String(seconds);
+      if (seconds > 0) {
+        setTimeout(tick, 1000);
+      } else {
+        document.getElementById("verifiBtn").innerHTML = `
+            <div class="Btn" id="ResendBtn">
+                <button type="submit">Resend</button>
+            </div>
+        `;
+        document.getElementById("counter").innerHTML = "";
+      }
+    }
+    tick();
+  }
 
 //main function below that drives everything 
 
@@ -283,12 +289,18 @@ function runQuiz() {
     //put up Timer and Score;
 
     //TIMER
+    //make the timer area
+    timerElement = document.createElement("p");
+    timerElement.id = 'timer';
+    document.getElementById("timerbox").appendChild(timerElement);
+
     //run the timer function
-    // countdown();
+    countdown();
 
     //SCORE
     //<p>Current score: </p>
     scoreElement = document.createElement("p");
+    scoreElement.id = 'score';
     scoreElement.textContent = "Current score: " + score;
     document.getElementById("scorebox").appendChild(scoreElement);
 
