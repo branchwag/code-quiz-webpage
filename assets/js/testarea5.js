@@ -48,3 +48,5 @@ function delay(time) {
   console.log(newHeader.textContent);
   console.log(typeof(newHeader.textContent))
   //toString()
+
+      //maybe make this a RunQuiz function that calls CheckAnswer which is defined above it

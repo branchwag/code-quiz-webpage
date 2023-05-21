@@ -120,14 +120,13 @@ var timer = 100;
 //rendering question and its answers onto the page, then listening for clicks. 
 function makeQuestion() {
 
-    // console.log(questionCount);
+    console.log(questionCount);
     // console.log("the quiz length minus 1 is " + (quizQandAs.length - 1));
 
-    //if there are no further questions, we need to stop the quiz 
-    //maybe make this a RunQuiz function that calls CheckAnswer which is defined above it
+    //if there are no further questions to make, we need to stop the quiz 
+    // logic issss to check for the length of the question array quizQandAs and runs this cycle for its length
 
     if (questionCount > (quizQandAs.length - 1)) {
-        console.log("The startQuiz function has run.");
         //wipe content box clean
         contentBox.innerHTML = "";
 
@@ -138,6 +137,12 @@ function makeQuestion() {
         newHeader.textContent = "Thanks for playing!";
         newHeader.id = 'endtext';
         document.getElementById("contentbox").appendChild(newHeader)
+
+        //we also need to take the score and allow the user to save it
+        // your score is blah blah, enter initials and submit it
+        //so we can store what they submit as initials in a variable next to the score
+        console.log("The score inside the makeQuestion function is " + score);
+        storeScore();
 
 
         return //console.log("STOP DA QUIZ!");
@@ -227,8 +232,7 @@ function CheckAnswer(event) {
     else if (event.target.id.includes("answer") && (event.target.innerText !== quizQandAs[questionCount].answers[convertedAnswerToString])) {
         
         //telling user that they got question WRONG
-        // console.log("You clicked the right button.");
-        console.log("You clicked an answer but it is not right");
+        //console.log("You clicked an answer but it is not right");
         feedbackElement.textContent = "WRONG"
         document.getElementById("feedback").appendChild(feedbackElement);
 
@@ -245,18 +249,21 @@ function CheckAnswer(event) {
 return ;
 }
 
-// function RunQuiz() {
-    
-// }
+function storeScore() {
+    console.log("The score inside the storeScore function is " + score);
+    // console.log("This is the store score function.")
+}
 
 function startQuiz() {
-    //add some logic that for the length of the question array quizQandAs and runs this cycle for its length
+
     makeQuestion();
-    // putupTimerandScore();
+    // put up Timer and Score;
     //<p>Current score: </p>
     scoreElement = document.createElement("p");
     scoreElement.textContent = "Current score: " + score;
     document.getElementById("scorebox").appendChild(scoreElement);
+    console.log("The startQuiz function has really run!")
+    return;
 }
 
 //Initialization
