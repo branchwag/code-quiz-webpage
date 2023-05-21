@@ -271,7 +271,7 @@ function timerFunction() {
         return timer.innerHTML = "Timer:" + secondCount;
     } 
     //else if we still have questions left but the timer is now 0
-    else if (secondCount === 0 && (questionCount < (quizQandAs.length - 1))) {
+    else if (secondCount === 0 && (questionCount < quizQandAs.length)) {
         timer.innerHTML = "TIMER IS UP!";
         clearInterval(intTimerID);
         //adding a delay here so we can see the timer being up
