@@ -48,3 +48,21 @@ console.log("The score inside the makeQuestion function is " + score);
 
 
     //clearInterval(intTimerID2);
+
+    //variable to keep track of if game has ended already
+// var endGameRun = 0
+
+    //if endGame function has run
+    // if (endGameRun > 0) {
+    // console.log("The score is " + score);
+    // }
+
+
+            //boxwithButtons = document.getElementById("answersbox")
+        //feedback.innerHTML = "";
+
+
+        // function storeScore() {
+    
+//     // console.log("This is the store score function.")
+// }

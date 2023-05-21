@@ -73,3 +73,14 @@ button:hover {
     height: auto;
     margin: 10px auto;
 }
+
+#feedback {
+    display: block;
+    width: 400px;
+    height: auto;
+    margin: 10px auto;
+}
+
+input {
+    background-color: antiquewhite;
+}
