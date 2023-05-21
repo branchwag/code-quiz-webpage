@@ -46,7 +46,7 @@ var quizQandAs = [
 		correctAnswer: 'd'
 	},
     {
-		question: "How do create a function in Javascript?",
+		question: "How do you create a function in Javascript?",
 		answers: {
 			a: 'function myFunction()',
 			b: 'function = myFunction()',
@@ -107,83 +107,125 @@ var quizQandAs = [
 	},
 ];
 
-console.log(quizQandAs.length);
+//just checking number of questions to make sure we have 10 questions
+//console.log(quizQandAs.length);
 
-//variable to determine current question
+//variable to determine current question we are on
 var questionCount = 0;
 
 //score and timer
 var score = 0;
-var timer = 100;
+var secondCount = 90;
 
-//rendering question and its answers onto the page
+// function subtractTimer() {
+//     secondCount - 20;
+//     return console.log(secondCount);
+// }
+
+//rendering question and its answers onto the page, then listening for clicks. 
 function makeQuestion() {
 
-    //wipe content box clean
-    contentBox.innerHTML = "";
+    console.log(questionCount);
+    // console.log("the quiz length minus 1 is " + (quizQandAs.length - 1));
 
-    //wipe feedback box clean after some time
-    feedback.innerHTML = "";
+    //if there are no further questions to make, we need to stop the quiz 
+    // logic issss to check for the length of the question array quizQandAs and runs this cycle for its length
 
-    //GET THE QUESTION AND ANSWER CONTENT
+    if (questionCount > (quizQandAs.length - 1)) {
 
-    //create new question content
-    var newHeader = document.createElement("h1");
-    newHeader.textContent = quizQandAs[questionCount].question;
-    newHeader.id = 'question';
-    document.getElementById("contentbox").appendChild(newHeader)
+        //console.log("STOP DA QUIZ!");
 
-    //making a box to append answers to rather than appending to header
-    // <div id="answersbox"></div>
-    var answersBox = document.createElement("h1");
-    answersBox.id = 'answersbox';
-    document.getElementById("question").after(answersBox);
+        //wipe content box clean
+        contentBox.innerHTML = "";
 
-    //MAKING THE ANSWER BUTTONS
-    var countOfAnswers = (Object.values(quizQandAs[questionCount].answers).length);
-    var answerArray = Object.values(quizQandAs[questionCount].answers);
+        //wipe feedback box clean
+        feedback.innerHTML = "";
 
-    for (var i = 0; i < countOfAnswers; i++) {
+        //wipe timer box clean
+        //clearTimeout();
+        timerbox.innerHTML = "";
 
-    //adds answer buttons AFTER the new header question in the answersbox div
-    var answerElement = document.createElement("button");
-    var uniqueIDvalue = 'answer' + i; //assigns each button unique ID
-    answerElement.id = uniqueIDvalue; 
+        var newHeader = document.createElement("h1");
+        newHeader.textContent = "Thanks for playing!";
+        newHeader.id = 'endtext';
+        document.getElementById("contentbox").appendChild(newHeader)
 
-    //populate each answer button with the associated answer in the array for this question
-    // var answerTextfromArray = answerArray[i];
-    answerElement.innerHTML = answerArray[i].toString();
-    // console.log(typeof(answerArray));
+        //we also need to take the score and allow the user to save it
+        // your score is blah blah, enter initials and submit it
+        //so we can store what they submit as initials in a variable next to the score
+        console.log("The score inside the makeQuestion function is " + score);
+        storeScore();
 
-    document.getElementById("answersbox").appendChild(answerElement);
 
+        return ;
     }
 
-    document.addEventListener('click', CheckAnswer);
+    else {
 
-return;
+        //wipe content box clean
+        contentBox.innerHTML = "";
+
+        //wipe feedback box clean
+        feedback.innerHTML = "";
+
+        //GET THE QUESTION AND ANSWER CONTENT
+
+        //create new question content
+        var newHeader = document.createElement("h1");
+        newHeader.textContent = quizQandAs[questionCount].question;
+        newHeader.id = 'question';
+        document.getElementById("contentbox").appendChild(newHeader)
+
+        //making a box to append answers to rather than appending to header
+        // <div id="answersbox"></div>
+        var answersBox = document.createElement("h1");
+        answersBox.id = 'answersbox';
+        document.getElementById("question").after(answersBox);
+
+        //MAKING THE ANSWER BUTTONS
+        var countOfAnswers = (Object.values(quizQandAs[questionCount].answers).length);
+        var answerArray = Object.values(quizQandAs[questionCount].answers);
+
+        for (var i = 0; i < countOfAnswers; i++) {
+
+            //adds answer buttons AFTER the new header question in the answersbox div
+            var answerElement = document.createElement("button");
+            var uniqueIDvalue = 'answer' + i; //assigns each button unique ID
+            answerElement.id = uniqueIDvalue; 
+
+            //populate each answer button with the associated answer in the array for this question
+            // var answerTextfromArray = answerArray[i];
+            answerElement.innerHTML = answerArray[i].toString();
+            // console.log(typeof(answerArray));
+
+            document.getElementById("answersbox").appendChild(answerElement);
+
+            }
+    }
+    
+return console.log("The MakeQuestion function has run!");
 }
 
 function CheckAnswer(event) {
-
+    console.log("The CheckAnswer function has run!");
         //take the value contained within the element itself and check it against the question's answer property
-    // if answer clicked === current question's answer property
+        //if answer clicked === current question's answer property
         // create element with Correct text on page
         //increment score if correct
 
-    //check the answer of the current question we are on and compare against answer in box
+    //check the answer of the current question we are on and compare against answer in button box
     var currentQuestionAnswer = Object.values(quizQandAs[questionCount].correctAnswer);
     var convertedAnswerToString = currentQuestionAnswer.toString();
     var feedbackElement = document.createElement("p");
     
-    //if button is an answer button AND criteria checks out, do the things
+    //CORRECT: if button clicked is an answer button AND the button text equals the right answer for that question, run the things needed for being correct
     if (event.target.id.includes("answer") && (event.target.innerText === quizQandAs[questionCount].answers[convertedAnswerToString])) {
         
         score += 10;
-        //update the score paragraph with new text for score
-        scoreElement.textContent = "Current score: " + score;
+        //update the score paragraph with new text for increased score
+        scoreElement.textContent = "Score: " + score;
 
-        //telling user that they got question right
+        //tell user that they got question right by putting in element under question
         // console.log("You clicked the right button.");
         feedbackElement.textContent = "Correct!"
         document.getElementById("feedback").appendChild(feedbackElement);
@@ -191,22 +233,28 @@ function CheckAnswer(event) {
         questionCount++; //incrementing the question count to prepare for running the makequestion function to populate next question
 
         //wait here to let the user see the result for a second
-        return setTimeout(makeQuestion, 1000);
+    return setTimeout(makeQuestion, 1000);
         
         }
+    //INCORRECT: if the thing clicked is an answer button and the answer text is not the correct answer for the question, run the things for being incorrect
     else if (event.target.id.includes("answer") && (event.target.innerText !== quizQandAs[questionCount].answers[convertedAnswerToString])) {
         
+
+
         //telling user that they got question WRONG
-        // console.log("You clicked the right button.");
         console.log("You clicked an answer but it is not right");
         feedbackElement.textContent = "WRONG"
         document.getElementById("feedback").appendChild(feedbackElement);
 
         questionCount++;
-        console.log(questionCount);
+        var lostSecondCount = secondCount - 20; 
 
-        return setTimeout(makeQuestion, 1000);
+        //wait here to let the user see the result for a second
+        setTimeout(makeQuestion, 1000);
+    //need to return the updated second count so it can be used by the timer outside this function
+    return secondCount = lostSecondCount;
     }
+    //accounting for things besides the buttons being clicked
     else {
         console.log("listening...");
     }
@@ -214,20 +262,68 @@ function CheckAnswer(event) {
 return ;
 }
 
+function storeScore() {
+    console.log("The score inside the storeScore function is " + score);
+    // console.log("This is the store score function.")
+}
 
-function startQuiz() {
-    //add some logic that for the length of the question array quizQandAs and runs this cycle for its length
+function countdown() {
+    // console.log("THIS IS THE TIMER FUNCTION");
+    
+    //using setInterval to make timer
+    var intTimerID = setInterval(secondsCounter, 1000);
+
+    var timer = document.getElementById("timer");
+
+        function secondsCounter() {
+            //if quiz is still going
+            if (questionCount <= (quizQandAs.length - 1)) {
+            secondCount--;
+            // console.log(secondCount);
+            return timer.innerHTML = "Timer:" + secondCount;
+            }
+            else {
+            clearInterval(intTimerID);
+            }
+        }
+    
+}
+
+//main function below that drives everything 
+
+function runQuiz() {
+    console.log("The runQuiz function has started!")
+
     makeQuestion();
-    // putupTimerandScore();
+
+    //then put up Timer and Score;
+
+    //TIMER
+    //make the timer area
+    timerElement = document.createElement("p");
+    timerElement.id = 'timer';
+    document.getElementById("timerbox").appendChild(timerElement);
+    timer.innerHTML = "Timer:" + secondCount;
+
+    //run the timer function
+    countdown();
+
+    //SCORE
     //<p>Current score: </p>
     scoreElement = document.createElement("p");
-    scoreElement.textContent = "Current score: " + score;
+    scoreElement.id = 'score';
+    scoreElement.textContent = "Score: " + score;
     document.getElementById("scorebox").appendChild(scoreElement);
 
-    return console.log("the startQuiz function has run.");
+    //now we listen for clicks and when the user clicks, we run CheckAnswer
+    document.addEventListener('click', CheckAnswer);
+
+    return;
 }
 
 //Initialization
 //Listen for button click to start the game
-document.getElementById("startbutton").addEventListener('click', startQuiz);
+document.getElementById("startbutton").addEventListener('click', runQuiz);
 
+
+//console.log(questionCount);
