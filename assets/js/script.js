@@ -115,7 +115,11 @@ var questionCount = 0;
 
 //score and timer
 var score = 0;
-var timer = 100;
+var secondCount = 90;
+
+function subtractTimer() {
+    return secondCount - 20;
+}
 
 //rendering question and its answers onto the page, then listening for clicks. 
 function makeQuestion() {
@@ -234,15 +238,17 @@ function CheckAnswer(event) {
     //INCORRECT: if the thing clicked is an answer button and the answer text is not the correct answer for the question, run the things for being incorrect
     else if (event.target.id.includes("answer") && (event.target.innerText !== quizQandAs[questionCount].answers[convertedAnswerToString])) {
         
+        //update timer to lose time
+        //subtract from timer
+        subtractTimer();
+
         //telling user that they got question WRONG
-        //console.log("You clicked an answer but it is not right");
+        console.log("You clicked an answer but it is not right");
         feedbackElement.textContent = "WRONG"
         document.getElementById("feedback").appendChild(feedbackElement);
 
         questionCount++;
 
-        //subtract from timer
-        
         //wait here to let the user see the result for a second
         return setTimeout(makeQuestion, 1000);
     }
@@ -260,37 +266,26 @@ function storeScore() {
 }
 
 function countdown() {
-    var seconds = 60;
+    // console.log("THIS IS THE TIMER FUNCTION");
+    
+    //using setInterval to make timer
+    var intTimerID = setInterval(secondsCounter, 1000);
 
-        //only tick if the quiz is still going
-    //if element id exists
-    // console.log(document.getElementById("timer"));
-    // console.log(typeof(document.getElementById("timer")));
+    var timer = document.getElementById("timer");
 
-    if (document.getElementById("timer") !== null) {
-        tick();
-    }
-    else {
-        console.log("Timer is no longer needed");
-        // clearTimeout();
-    }
-
-        function tick() {
-        var counter = document.getElementById("timer");
-        seconds--;
-        counter.innerHTML =
-            "Timer:" + (seconds < 10 ? "0" : "") + String(seconds);
-        if (seconds > 0) {
-            setTimeout(tick, 1000);
-        } else {
-            //clearTimeout();
-            document.getElementById("contentbox").innerHTML = "TIMES UP!!";
-            document.getElementById("timer").innerHTML = "";
+        function secondsCounter() {
+            //if quiz is still going
+            if (questionCount <= (quizQandAs.length - 1)) {
+            secondCount--;
+            // console.log(secondCount);
+            timer.innerHTML = "Timer:" + secondCount;
+            }
+            else {
+            clearInterval(intTimerID);
+            }
         }
-        }
-
-
-  }
+    
+}
 
 //main function below that drives everything 
 
@@ -299,7 +294,7 @@ function runQuiz() {
 
     makeQuestion();
 
-    //put up Timer and Score;
+    //then put up Timer and Score;
 
     //TIMER
     //make the timer area
