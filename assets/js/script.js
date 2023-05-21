@@ -315,9 +315,15 @@ console.log("The endGame function has run and the score is " + score);
 
 //we also need to take the score and allow the user to save it
 // your score is blah blah, enter initials and submit it
+var initialLabel = document.createElement("Label");
+initialLabel.setAttribute("for", "initialBox");
+initialLabel.id = 'intinputlabel';
+document.getElementById("scorebox").appendChild(initialLabel);
+
 var initialBox = document.createElement("INPUT");
 initialBox.setAttribute("type", "text");
-document.getElementById("scorebox").appendChild(initialBox);
+initialBox.id = 'initialinput';
+document.getElementById("intinputlabel").appendChild(initialBox);
 
 
 //so we can store what they submit as initials in a variable next to the score

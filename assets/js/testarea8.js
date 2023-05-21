@@ -22,3 +22,6 @@ document.querySelector('input').focus();
         /* justify-content: center;
         text-align: center; */
     //}
+
+    {/* <label for="explicit-label-name">Name: </label>
+<input type="text" id="explicit-label-name" name="name" /> */}
