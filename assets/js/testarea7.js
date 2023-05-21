@@ -30,3 +30,8 @@ function countdown() {
 
 
   }
+
+
+          //update timer to lose time
+        //subtract from timer
+        // subtractTimer();

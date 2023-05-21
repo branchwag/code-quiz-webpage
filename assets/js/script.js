@@ -117,9 +117,10 @@ var questionCount = 0;
 var score = 0;
 var secondCount = 90;
 
-function subtractTimer() {
-    return secondCount - 20;
-}
+// function subtractTimer() {
+//     secondCount - 20;
+//     return console.log(secondCount);
+// }
 
 //rendering question and its answers onto the page, then listening for clicks. 
 function makeQuestion() {
@@ -232,15 +233,13 @@ function CheckAnswer(event) {
         questionCount++; //incrementing the question count to prepare for running the makequestion function to populate next question
 
         //wait here to let the user see the result for a second
-        return setTimeout(makeQuestion, 1000);
+    return setTimeout(makeQuestion, 1000);
         
         }
     //INCORRECT: if the thing clicked is an answer button and the answer text is not the correct answer for the question, run the things for being incorrect
     else if (event.target.id.includes("answer") && (event.target.innerText !== quizQandAs[questionCount].answers[convertedAnswerToString])) {
         
-        //update timer to lose time
-        //subtract from timer
-        subtractTimer();
+
 
         //telling user that they got question WRONG
         console.log("You clicked an answer but it is not right");
@@ -248,9 +247,12 @@ function CheckAnswer(event) {
         document.getElementById("feedback").appendChild(feedbackElement);
 
         questionCount++;
+        var lostSecondCount = secondCount - 20; 
 
         //wait here to let the user see the result for a second
-        return setTimeout(makeQuestion, 1000);
+        setTimeout(makeQuestion, 1000);
+    //need to return the updated second count so it can be used by the timer outside this function
+    return secondCount = lostSecondCount;
     }
     //accounting for things besides the buttons being clicked
     else {
@@ -278,7 +280,7 @@ function countdown() {
             if (questionCount <= (quizQandAs.length - 1)) {
             secondCount--;
             // console.log(secondCount);
-            timer.innerHTML = "Timer:" + secondCount;
+            return timer.innerHTML = "Timer:" + secondCount;
             }
             else {
             clearInterval(intTimerID);
@@ -301,6 +303,7 @@ function runQuiz() {
     timerElement = document.createElement("p");
     timerElement.id = 'timer';
     document.getElementById("timerbox").appendChild(timerElement);
+    timer.innerHTML = "Timer:" + secondCount;
 
     //run the timer function
     countdown();
