@@ -35,3 +35,16 @@ function countdown() {
           //update timer to lose time
         //subtract from timer
         // subtractTimer();
+
+        // function subtractTimer() {
+//     secondCount - 20;
+//     return console.log(secondCount);
+// }            
+
+// console.log(secondCount);
+
+console.log("The score inside the makeQuestion function is " + score);
+        storeScore();
+
+
+    //clearInterval(intTimerID2);
