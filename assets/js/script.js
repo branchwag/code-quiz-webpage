@@ -116,11 +116,13 @@ var questionCount = 0;
 //score and timer
 var score = 0;
 var secondCount = 120;
-//var timerRunOut = false;
+var timerRunOut = false;
 var endGameRun = 0;
 
 //storing results
 var resultsArray = [];
+
+resetEndGameRun();
 
 function checkingIfOkaytoMakeQuestion () {
     if (secondCount < 0) {
@@ -271,10 +273,10 @@ function timerFunction() {
         return timer.innerHTML = "Timer:" + secondCount;
     } 
     //else if we still have questions left but the timer is now 0 or below 0 (because the seconds subtraction for incorrect can make it negative)
-    else if (secondCount <= 0 && (questionCount < quizQandAs.length) && (endGameRun < 1)) {
+    else if (secondCount <= 0 && ((questionCount < quizQandAs.length) && (endGameRun < 1)) && timerRunOut === false) {
         timer.innerHTML = "TIMER IS UP!";
         clearInterval(intTimerID);
-        // timerRunOut = true;
+        timerRunOut = true;
         console.log("Timer has run out!!! ");
         console.log("The endgamerun value is  "+ endGameRun);
         //adding a delay here so we can see the timer being up
@@ -296,6 +298,7 @@ function endGame() {
 //trigger by if the timer has run out or if we have run out of questions
 //update the page
 //take the score and store it 
+console.log("Timer has caused endgame to start!!! ");
 
 //console.log("STOP DA QUIZ!");
 
@@ -376,7 +379,7 @@ function resetQuiz() {
     resetScore();
     resetQuestionCount();
     resetTimer();
-    resetEndGameRun();
+    resetTimerRunout();
     document.querySelector("#feedback").innerHTML = "";
     return runQuiz();
 }
@@ -394,6 +397,11 @@ function resetQuestionCount() {
 function resetTimer() {
     return secondCount = 120;
 }
+
+function resetTimerRunout() {
+    return timerRunOut = false;
+}
+
 function resetEndGameRun() {
     return endGameRun = 0;
 }
@@ -402,7 +410,8 @@ function resetEndGameRun() {
 
 function runQuiz() {
     
-    console.log("The runQuiz function has started!")
+    console.log("The runQuiz function has started!");
+    console.log("The endgamerun value is " + endGameRun);
 
     makeQuestion();
 
