@@ -117,9 +117,19 @@ var questionCount = 0;
 var score = 0;
 var secondCount = 120;
 //var timerRunOut = false;
+var endGameRun = 0;
 
 //storing results
 var resultsArray = [];
+
+function checkingIfOkaytoMakeQuestion () {
+    if (secondCount < 0) {
+        return
+    }
+    else {
+        return makeQuestion();
+    }
+}
 
 //rendering question and its answers onto the page, then listening for clicks. 
 function makeQuestion() {
@@ -134,8 +144,7 @@ function makeQuestion() {
     //console.log("The endGameRun variable is " + endGameRun)
 
     //checks if we have reached the end of the questions
-    if (questionCount > (quizQandAs.length - 1)) {
-        //moved this to the endGame function, which is also called when time runs out
+    if (questionCount > (quizQandAs.length - 1) && (endGameRun < 1)) {
         //console.log("The part of the makeQuestion function that causes the game to End has run");
     return endGame();}
 
@@ -213,7 +222,7 @@ function CheckAnswer(event) {
         questionCount++; //incrementing the question count to prepare for running the makequestion function to populate next question
 
         //wait here to let the user see the result for a second
-    return setTimeout(makeQuestion, 1000);
+    return setTimeout(checkingIfOkaytoMakeQuestion, 1000);
         
         }
     //INCORRECT: if the thing clicked is an answer button and the answer text is not the correct answer for the question, run the things for being incorrect
@@ -230,7 +239,7 @@ function CheckAnswer(event) {
         //wait here to let the user see the result for a second before going into MakeQuestion
         
     //need to return the updated second count so it can be used by the timer outside this function?
-    return setTimeout(makeQuestion, 1000);
+    return setTimeout(checkingIfOkaytoMakeQuestion, 1000);
         
     }
     //accounting for things besides the buttons being clicked
@@ -262,17 +271,18 @@ function timerFunction() {
         return timer.innerHTML = "Timer:" + secondCount;
     } 
     //else if we still have questions left but the timer is now 0 or below 0 (because the seconds subtraction for incorrect can make it negative)
-    else if (secondCount <= 0 && (questionCount < quizQandAs.length)) {
+    else if (secondCount <= 0 && (questionCount < quizQandAs.length) && (endGameRun < 1)) {
         timer.innerHTML = "TIMER IS UP!";
         clearInterval(intTimerID);
         // timerRunOut = true;
         console.log("Timer has run out!!! ");
+        console.log("The endgamerun value is  "+ endGameRun);
         //adding a delay here so we can see the timer being up
         return setTimeout(endGame, 1000);   
     }
     
     else {
-        return clearInterval(intTimerID); //console.log("Other secondsCounter scenario has occurred");
+        return //clearInterval(intTimerID); //console.log("Other secondsCounter scenario has occurred");
     }
     // clearInterval(intTimerID);
     // document.getElementById("contentbox").innerHTML = "TIME IS UP!";
@@ -334,8 +344,9 @@ document.getElementById("initialinput").after(submit);
 
 //get info and need to prevent page refresh
 var initialInput = document.querySelector("#initialinput");
-var submissionResponseEl = document.querySelector("#feedback");
+var submissionResponseEl = document.createElement("p");
 var initials = initialInput.value;
+document.querySelector("#feedback").appendChild(submissionResponseEl);
 
 document.getElementById("submit").addEventListener('click', function logScore(event) {
     event.preventDefault();
@@ -354,18 +365,43 @@ document.querySelector("#feedback").appendChild(playAgainButton);
 //     window.location.reload();
 // } 
 
-document.getElementById("playagainbutton").addEventListener('click', runQuiz);
+document.getElementById("playagainbutton").addEventListener('click', resetQuiz);
 //so we can store what they submit as initials in a variable next to the score
 //make an empty array and insert the result plus initials as a string
 
-return; //endGameRun = 1; //results array with initial score pushed in as string
+return endGameRun + 1; //results array with initial score pushed in as string
+}
+
+function resetQuiz() {
+    resetScore();
+    resetQuestionCount();
+    resetTimer();
+    resetEndGameRun();
+    document.querySelector("#feedback").innerHTML = "";
+    return runQuiz();
+}
+
+//ensure score, timer, and question count are reset
+function resetScore() {
+    scorebox.innerHTML = "";
+    return score = 0;
+}
+
+function resetQuestionCount() {
+    return questionCount = 0;
+}
+
+function resetTimer() {
+    return secondCount = 120;
+}
+function resetEndGameRun() {
+    return endGameRun = 0;
 }
 
 //main function below that drives everything 
 
 function runQuiz() {
-//ensure score, timer, and question count are reset
-
+    
     console.log("The runQuiz function has started!")
 
     makeQuestion();
@@ -390,7 +426,7 @@ function runQuiz() {
     document.getElementById("scorebox").appendChild(scoreElement);
 
     //now we listen for clicks and when the user clicks, we run CheckAnswer which then kicks off everything else
-    document.addEventListener('click', CheckAnswer);
+    document.addEventListener('click', runCheckAnswer);
 
     return console.log("The runQuiz function has run");
 }
@@ -399,5 +435,11 @@ function runQuiz() {
 //Listen for button click to start the game
 document.getElementById("startbutton").addEventListener('click', runQuiz);
 
+function runCheckAnswer(event) {
+if (questionCount <= (quizQandAs.length - 1)) {
+    return CheckAnswer(event); 
+}
 
-//console.log(questionCount);
+else {
+    return console.log("No more checking of answers");
+}}
