@@ -25,3 +25,19 @@ document.querySelector('input').focus();
 
     {/* <label for="explicit-label-name">Name: </label>
 <input type="text" id="explicit-label-name" name="name" /> */}
+
+
+//document.getElementById("intinputlabel").appendChild(initialBox);
+
+|| timerRunOut === true
+
+        // var tickingDown = secondCount --;
+        // console.log(tickingDown);
+        // console.log(tickingDown);
+        // return timer.innerHTML = "Timer:" + tickingDown;
+
+
+        // contentBox.innerHTML = "TIMER IS UP!"; // prevents clicked answer after timer is up
+
+        // var initials = document.getElementById("input").value;
+// console.log(initials);

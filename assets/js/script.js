@@ -115,8 +115,8 @@ var questionCount = 0;
 
 //score and timer
 var score = 0;
-var secondCount = 90;
-var timerRunOut = false;
+var secondCount = 120;
+//var timerRunOut = false;
 
 //storing results
 var resultsArray = [];
@@ -133,16 +133,13 @@ function makeQuestion() {
     //check not only question count but if endgame has run
     //console.log("The endGameRun variable is " + endGameRun)
 
-    //checks if we have reached the end of the questions or if timer has run out
-    if (questionCount > (quizQandAs.length - 1) || timerRunOut === true) {
+    //checks if we have reached the end of the questions
+    if (questionCount > (quizQandAs.length - 1)) {
         //moved this to the endGame function, which is also called when time runs out
         //console.log("The part of the makeQuestion function that causes the game to End has run");
-    return endGame();
-
-    }
+    return endGame();}
 
     else {
-
         //wipe content box clean
         contentBox.innerHTML = "";
 
@@ -261,21 +258,14 @@ function timerFunction() {
 
     function secondsCounter() {
     if (secondCount > 0) {
-        //timer variables
-
         secondCount--
-        // var tickingDown = secondCount --;
-        // console.log(tickingDown);
-        // console.log(tickingDown);
-        // return timer.innerHTML = "Timer:" + tickingDown;
         return timer.innerHTML = "Timer:" + secondCount;
     } 
     //else if we still have questions left but the timer is now 0 or below 0 (because the seconds subtraction for incorrect can make it negative)
     else if (secondCount <= 0 && (questionCount < quizQandAs.length)) {
         timer.innerHTML = "TIMER IS UP!";
-        contentBox.innerHTML = "TIMER IS UP!"; // prevents clicked answer after timer is up
         clearInterval(intTimerID);
-        timerRunOut = true;
+        // timerRunOut = true;
         console.log("Timer has run out!!! ");
         //adding a delay here so we can see the timer being up
         return setTimeout(endGame, 1000);   
@@ -318,8 +308,10 @@ console.log("The endGame function has run and the score is " + score);
 
 //we also need to take the score and allow the user to save it
 // your score is blah blah, enter initials and submit it
+
 // Create a form 
 var form = document.createElement("form");
+form.id = 'form';
 document.getElementById("score").appendChild(form);
 
 var initialLabel = document.createElement("Label");
@@ -327,17 +319,42 @@ initialLabel.setAttribute("for", "initialBox");
 initialLabel.id = 'intinputlabel';
 document.getElementById("form").appendChild(initialLabel);
 
-var initialBox = document.createElement("INPUT");
-initialBox.setAttribute("type", "text");
-initialBox.id = 'initialinput';
-document.getElementById("intinputlabel").appendChild(initialBox);
+var initialInputBox = document.createElement("INPUT");
+initialInputBox.setAttribute("type", "text");
+initialInputBox.setAttribute("placeholder", "Input Initials Here");
+initialInputBox.id = 'initialinput';
+document.getElementById("intinputlabel").after(initialInputBox);
 
 // create a submit button
 var submit = document.createElement("input");
 submit.setAttribute("type", "submit");
-submit.setAttribute("value", "Submit");
+submit.setAttribute("value", "Save Score");
+submit.id = 'submit';
+document.getElementById("initialinput").after(submit);
 
+//get info and need to prevent page refresh
+var initialInput = document.querySelector("#initialinput");
+var submissionResponseEl = document.querySelector("#feedback");
+var initials = initialInput.value;
 
+document.getElementById("submit").addEventListener('click', function logScore(event) {
+    event.preventDefault();
+    console.log(event);
+    var response = initialInput.value + "! Your score has been saved!";
+    submissionResponseEl.textContent = response;
+    return initialInput.value;
+  });
+
+var playAgainButton = document.createElement("button");
+playAgainButton.id = 'playagainbutton'; 
+playAgainButton.innerText = "Play Again";
+document.querySelector("#feedback").appendChild(playAgainButton);
+
+// function refreshPage(){
+//     window.location.reload();
+// } 
+
+document.getElementById("playagainbutton").addEventListener('click', runQuiz);
 //so we can store what they submit as initials in a variable next to the score
 //make an empty array and insert the result plus initials as a string
 
@@ -347,6 +364,8 @@ return; //endGameRun = 1; //results array with initial score pushed in as string
 //main function below that drives everything 
 
 function runQuiz() {
+//ensure score, timer, and question count are reset
+
     console.log("The runQuiz function has started!")
 
     makeQuestion();
