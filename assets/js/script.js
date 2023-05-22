@@ -116,6 +116,7 @@ var questionCount = 0;
 //score and timer
 var score = 0;
 var secondCount = 90;
+var timerRunOut = false;
 
 //storing results
 var resultsArray = [];
@@ -132,9 +133,8 @@ function makeQuestion() {
     //check not only question count but if endgame has run
     //console.log("The endGameRun variable is " + endGameRun)
 
-    //checks if we have reached the end of the questions 
-    //or if we have run out of time? no not needed as this is controlled further below
-    if (questionCount > (quizQandAs.length - 1)) {
+    //checks if we have reached the end of the questions or if timer has run out
+    if (questionCount > (quizQandAs.length - 1) || timerRunOut === true) {
         //moved this to the endGame function, which is also called when time runs out
         //console.log("The part of the makeQuestion function that causes the game to End has run");
     return endGame();
@@ -273,8 +273,10 @@ function timerFunction() {
     //else if we still have questions left but the timer is now 0 or below 0 (because the seconds subtraction for incorrect can make it negative)
     else if (secondCount <= 0 && (questionCount < quizQandAs.length)) {
         timer.innerHTML = "TIMER IS UP!";
+        contentBox.innerHTML = "TIMER IS UP!"; // prevents clicked answer after timer is up
         clearInterval(intTimerID);
-        console.log("Timer has run out!!!");
+        timerRunOut = true;
+        console.log("Timer has run out!!! ");
         //adding a delay here so we can see the timer being up
         return setTimeout(endGame, 1000);   
     }
@@ -316,22 +318,29 @@ console.log("The endGame function has run and the score is " + score);
 
 //we also need to take the score and allow the user to save it
 // your score is blah blah, enter initials and submit it
+// Create a form 
+var form = document.createElement("form");
+document.getElementById("score").appendChild(form);
+
 var initialLabel = document.createElement("Label");
 initialLabel.setAttribute("for", "initialBox");
 initialLabel.id = 'intinputlabel';
-document.getElementById("scorebox").appendChild(initialLabel);
+document.getElementById("form").appendChild(initialLabel);
 
 var initialBox = document.createElement("INPUT");
 initialBox.setAttribute("type", "text");
 initialBox.id = 'initialinput';
 document.getElementById("intinputlabel").appendChild(initialBox);
 
+// create a submit button
+var submit = document.createElement("input");
+submit.setAttribute("type", "submit");
+submit.setAttribute("value", "Submit");
+
 
 //so we can store what they submit as initials in a variable next to the score
 //make an empty array and insert the result plus initials as a string
 
-
-        
 return; //endGameRun = 1; //results array with initial score pushed in as string
 }
 
