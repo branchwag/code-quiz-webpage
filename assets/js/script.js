@@ -264,8 +264,18 @@ function timerFunction() {
     // console.log("THIS IS THE TIMER FUNCTION");
     
     //using setInterval to make timer
-    var intTimerID = setInterval(secondsCounter, 1000);
+    var intTimerID = setInterval(runSecondsCounter, 1000);
     var timer = document.getElementById("timer");
+
+    function runSecondsCounter() {
+        if (endGameRun > 0) {
+            clearInterval(intTimerID);
+            console.log("Timer cleared")
+        }
+        else {
+            return secondsCounter();
+        }
+    }
 
     function secondsCounter() {
     if (secondCount > 0) {
@@ -284,14 +294,14 @@ function timerFunction() {
     }
     
     else {
-        return //clearInterval(intTimerID); //console.log("Other secondsCounter scenario has occurred");
+        return clearInterval(intTimerID); //console.log("Other secondsCounter scenario has occurred");
     }
     // clearInterval(intTimerID);
     // document.getElementById("contentbox").innerHTML = "TIME IS UP!";
     // document.getElementById("timer").innerHTML = "TIME IS UP!";
 }
 
-return //intTimerID2 = intTimerID;
+return // clearInterval(intTimerID); //intTimerID2 = intTimerID;
 }
 
 function endGame() {
@@ -372,7 +382,7 @@ document.getElementById("playagainbutton").addEventListener('click', resetQuiz);
 //so we can store what they submit as initials in a variable next to the score
 //make an empty array and insert the result plus initials as a string
 
-return endGameRun + 1; //results array with initial score pushed in as string
+return endGameRun = endGameRun + 1; //results array with initial score pushed in as string
 }
 
 function resetQuiz() {
@@ -412,6 +422,7 @@ function runQuiz() {
     
     console.log("The runQuiz function has started!");
     console.log("The endgamerun value is " + endGameRun);
+    resetEndGameRun();
 
     makeQuestion();
 
