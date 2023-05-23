@@ -10,7 +10,7 @@ No install required! This is simply a webpage.
 
 ## Usage
 
-Access the webpage here:
+Access the webpage here: https://branchwag.github.io/code-quiz-webpage/
 
 Screenshot below:
 
