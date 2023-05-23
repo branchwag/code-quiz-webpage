@@ -355,34 +355,55 @@ submit.setAttribute("value", "Save Score");
 submit.id = 'submit';
 document.getElementById("initialinput").after(submit);
 
-//get info and need to prevent page refresh
+//GET INITIALS and need to prevent page refresh when hitting submit. Also account for box being blank
 var initialInput = document.querySelector("#initialinput");
 var submissionResponseEl = document.createElement("p");
-var initials = initialInput.value;
+//var initials = initialInput.value;
 document.querySelector("#feedback").appendChild(submissionResponseEl);
 
-document.getElementById("submit").addEventListener('click', function logScore(event) {
-    event.preventDefault();
-    console.log(event);
-    var response = initialInput.value + "! Your score has been saved!";
-    submissionResponseEl.textContent = response;
-    return initialInput.value;
-  });
+// document.getElementById("submit").addEventListener('click', function logScore(event) {
+//     event.preventDefault();
+//     console.log(event);
+//     var response = initialInput.value + "! Your score has been saved!";
+//     submissionResponseEl.textContent = response;
 
+    //initialInput.value
+
+function displayMessage(type, message) {
+    var submitfeedback = document.createElement("p");
+    submitfeedback.id = 'submitfeedback'; 
+    document.querySelector("#scorebox").appendChild(submitfeedback);
+
+    document.querySelector("#submitfeedback").textContent = message;
+    document.querySelector("#submitfeedback").setAttribute("class", type);
+    }
+
+document.getElementById("submit").addEventListener("click", function(event) {
+    event.preventDefault();
+    
+    var initials = document.querySelector("#initialinput").value;
+    
+    if (initials === "") {
+        displayMessage("error", "Box cannot be blank");
+    }
+    
+    else {
+        displayMessage("success", "Your score has been saved!");
+    // Save initials to localStorage 
+    localStorage.setItem("initialzz", initials);
+    localStorage.setItem("finalScore", score);
+    }
+    })
+
+// PLAY AGAIN BUTTON
 var playAgainButton = document.createElement("button");
 playAgainButton.id = 'playagainbutton'; 
 playAgainButton.innerText = "Play Again";
 document.querySelector("#feedback").appendChild(playAgainButton);
 
-// function refreshPage(){
-//     window.location.reload();
-// } 
-
 document.getElementById("playagainbutton").addEventListener('click', resetQuiz);
-//so we can store what they submit as initials in a variable next to the score
-//make an empty array and insert the result plus initials as a string
 
-return endGameRun = endGameRun + 1; //results array with initial score pushed in as string
+return endGameRun = endGameRun + 1; 
 }
 
 function resetQuiz() {
