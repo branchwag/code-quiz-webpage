@@ -442,7 +442,7 @@ function resetEndGameRun() {
 
 function runQuiz() {
 
-    renderhighScores();
+    //renderhighScores();
     
     console.log("The runQuiz function has started!");
     console.log("The endgamerun value is " + endGameRun);
@@ -499,17 +499,50 @@ function renderhighScores() {
   //clear content box, score box, and timer box
   //then in content box create and append scores from dictionary
 
-//   var spot1 = document.getElementById("scorebox") // make these other elements later
-//   var spot2 = document.getElementById("contentbox")
-  
-//   spot1.textContent = initialsText;
-//   spot2.textContent = highscoreText;
+    //wipe content box clean
+    document.getElementById("contentbox").innerHTML = "";
+
+    //wipe feedback box clean
+    document.getElementById("feedback").innerHTML = "";
+
+    //wipe score box clean
+    document.getElementById("scorebox").innerHTML = "";
+
+    //wipe timer box clean
+    document.getElementById("timerbox").innerHTML = "";
+
+    //NEED TO RECREATE THE PLAY AGAIN BUTTON
+    var playAgainButton = document.createElement("button");
+    playAgainButton.id = 'playagainbutton'; 
+    playAgainButton.innerText = "Play Again";
+    document.querySelector("#feedback").appendChild(playAgainButton);
+
+    document.getElementById("playagainbutton").addEventListener('click', resetQuiz);
+
+    //for each item in the resultsStorage, print it on the page like the answers
+
+     for (var i = 0; i < resultsStorage.length; i++) {
+
+         var highScoreElement = document.createElement("p");
+         var uniqueIDvalue = 'entry' + i; //assigns each button unique ID
+         highScoreElement.id = uniqueIDvalue; 
+
+         highScoreElement.innerHTML = JSON.stringify(resultsStorage[i]);
+         console.log(resultsStorage[i]);
+
+         document.getElementById("contentbox").appendChild(highScoreElement);
+
+         }
+    return;
   
   }
 
 //Initialization
 //Listen for button click to start the game
 document.getElementById("startbutton").addEventListener('click', runQuiz);
+
+//listen for button click to go to high scores
+document.getElementById("gethighscores").addEventListener('click', renderhighScores);
 
 function runCheckAnswer(event) {
 if (questionCount <= (quizQandAs.length - 1)) {

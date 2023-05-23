@@ -71,3 +71,9 @@ input {
     color:#0B2027;
     margin-right: 5px;
 }
+
+#gethighscores {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
