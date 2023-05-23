@@ -520,15 +520,16 @@ function renderhighScores() {
     document.getElementById("playagainbutton").addEventListener('click', resetQuiz);
 
     //for each item in the resultsStorage, print it on the page like the answers
+    //if resultsStorage has stuff in it, print on page, otherwise put element that says No scores yet
 
      for (var i = 0; i < resultsStorage.length; i++) {
 
          var highScoreElement = document.createElement("p");
          var uniqueIDvalue = 'entry' + i; //assigns each button unique ID
          highScoreElement.id = uniqueIDvalue; 
-
-         highScoreElement.innerHTML = JSON.stringify(resultsStorage[i]);
-         console.log(resultsStorage[i]);
+        //cleans up result retrieved and puts it on page
+         highScoreElement.innerHTML = ((((JSON.stringify(resultsStorage[i])).replace("\{\"initialz\"\:\"", "")).replace("\",\"", " ")).replace("log\"\:\"", " ")).replace("\"\}", "");
+         //console.log(resultsStorage[i]);
 
          document.getElementById("contentbox").appendChild(highScoreElement);
 
