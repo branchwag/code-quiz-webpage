@@ -120,7 +120,7 @@ var timerRunOut = false;
 var endGameRun = 0;
 
 //storing results
-var resultsArray = [];
+var resultsStorage = new Array();
 
 resetEndGameRun();
 
@@ -369,7 +369,7 @@ document.querySelector("#feedback").appendChild(submissionResponseEl);
 
     //initialInput.value
 
-function displayMessage(type, message) {
+function displayScoreSubmitMessage(type, message) {
     var submitfeedback = document.createElement("p");
     submitfeedback.id = 'submitfeedback'; 
     document.querySelector("#scorebox").appendChild(submitfeedback);
@@ -384,14 +384,15 @@ document.getElementById("submit").addEventListener("click", function(event) {
     var initials = document.querySelector("#initialinput").value;
     
     if (initials === "") {
-        displayMessage("error", "Box cannot be blank");
+        displayScoreSubmitMessage("error", "Box cannot be blank");
     }
     
     else {
-        displayMessage("success", "Your score has been saved!");
-    // Save initials to localStorage 
+        displayScoreSubmitMessage("success", "Your score has been saved!");
+    // Save initials and score to localStorage 
     localStorage.setItem("initialzz", initials);
     localStorage.setItem("finalScore", score);
+    storeScore();
     }
     })
 
@@ -437,9 +438,11 @@ function resetEndGameRun() {
     return endGameRun = 0;
 }
 
-//main function below that drives everything 
+//main function below that drives everything for quiz
 
 function runQuiz() {
+
+    renderhighScores();
     
     console.log("The runQuiz function has started!");
     console.log("The endgamerun value is " + endGameRun);
@@ -471,6 +474,38 @@ function runQuiz() {
 
     return console.log("The runQuiz function has run");
 }
+
+function storeScore() {
+    //Retrieve the stuff
+  var initialsText = localStorage.getItem("initialzz");
+  var highscoreText = localStorage.getItem("finalScore");
+
+  //take both and add to resultsStorage
+  var highScoreEntry = {
+        initialz: initialsText,
+        scorelog: highscoreText
+  };
+
+  resultsStorage.push(highScoreEntry);
+  return //console.log("STORESCORE HAS RUN");
+
+}
+
+//SEE HIGH SCORES
+function renderhighScores() {
+
+    console.log(resultsStorage);
+
+  //clear content box, score box, and timer box
+  //then in content box create and append scores from dictionary
+
+//   var spot1 = document.getElementById("scorebox") // make these other elements later
+//   var spot2 = document.getElementById("contentbox")
+  
+//   spot1.textContent = initialsText;
+//   spot2.textContent = highscoreText;
+  
+  }
 
 //Initialization
 //Listen for button click to start the game
