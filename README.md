@@ -14,7 +14,7 @@ Access the webpage here:
 
 To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, using the relative file path, add it to your README using the following syntax:
 
-![alt text](assets/images/screenshot.png)
+![alt text](assets/quizscreenshot.png)
 
 ## Credits
 
